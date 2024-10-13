@@ -7,6 +7,7 @@ import {
   getFirestore,
   serverTimestamp,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -27,6 +28,12 @@ const firebaseConfig = {
   messagingSenderId: "470599673665",
   appId: "1:470599673665:web:5c91fb82621997ef1de3c0",
 };
+import {
+  getStorage,
+  uploadString,
+  getDownloadURL,
+  ref,
+} from "firebase/storage";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -36,6 +43,8 @@ export default app;
 export const auth = getAuth(app);
 
 export const db = getFirestore(app);
+
+export const storage = getStorage(app);
 
 // =========Crear Usuario=========
 
@@ -75,4 +84,17 @@ export const getDocument = async (path: string) => {
 export const setDocument = (path: string, data: any) => {
   data.createdAt = serverTimestamp();
   return setDoc(doc(db, path), data);
+};
+
+export const updateDocument = (path: string, data: any) => {
+  return updateDoc(doc(db, path), data);
+};
+
+//==== Funciones de almacenamiento ====
+
+//====Subir un archivo en base64 y obtener su url para usar despues ====
+export const uploadBase64 = async (path: string, base64: string) => {
+  return uploadString(ref(storage, path), base64, "data_url").then(() => {
+    return getDownloadURL(ref(storage, path));
+  });
 };

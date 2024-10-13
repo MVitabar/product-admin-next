@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -52,7 +53,7 @@ const SignUpForm = () => {
       await updateUser({ displayName: user.name });
       user.uid = res.user.uid;
       await createUserInDb(user as User);
-    } catch (error: typeof Error | unknown) {
+    } catch (error: typeof Error | any) {
       toast.error(error.message, { duration: 3000 });
     } finally {
       setisLoading(false);
@@ -67,7 +68,7 @@ const SignUpForm = () => {
       delete user.password;
       await setDocument(path, user);
       toast.success(`Bienvenido ${user.name}`, { duration: 3000 });
-    } catch (error: typeof Error | unknown) {
+    } catch (error: typeof Error | any) {
       toast.error(error.message, { duration: 3000 });
     } finally {
       setisLoading(false);

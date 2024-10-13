@@ -18,13 +18,11 @@ const geistMono = localFont({
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const user = useUser();
   const pathName = usePathname();
 
-  const authRoutes = ["/", "sign-up", "forgot-password"];
+  const authRoutes = ["/", "/sign-up", "/forgot-password"];
   const isInAuthRoute = authRoutes.includes(pathName);
 
   if (user && isInAuthRoute) return redirect("/dashboard");

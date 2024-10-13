@@ -39,13 +39,13 @@ const ForgotPassword = () => {
     setisLoading(true);
     try {
       await sendResetEmail(user.email);
-      console.log("Sending reset email to:", user.email);
+      // console.log("Sending reset email to:", user.email);
       toast.success("Se envio un E-mail para restablecer la contraseña", {
         duration: 3000,
       });
       router.push("/");
     } catch (error: typeof Error | any) {
-      console.error("Error sending reset email:", error);
+      // console.error("Error sending reset email:", error);
       toast.error(error.message, { duration: 3000 });
     } finally {
       setisLoading(false);
@@ -68,26 +68,24 @@ const ForgotPassword = () => {
               Email
             </Label>
             <Input
-              className=" w-full "
+              className="w-full"
               type="email"
-              name="email"
+              {...form.register("email")}
               id="email"
               required
               autoComplete="email"
               placeholder="user@email.com"
             />
+
             <p className="form-error">{errors.email?.message}</p>
           </div>
           <div>
-            <Button
-              disabled={isLoading}
-              {...(isLoading && (
+            <Button disabled={isLoading} className="w-8/12" type="submit">
+              {isLoading ? (
                 <LoaderCircleIcon className="mr-2 w-8 h-8 animate-spin" />
-              ))}
-              className="w-8/12"
-              type="submit"
-            >
-              Recuperar
+              ) : (
+                "Recuperar"
+              )}
             </Button>
           </div>
           <Link

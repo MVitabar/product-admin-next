@@ -92,15 +92,12 @@ const SignInForm = () => {
             Olvidaste tu password?
           </Link>
           <div className="flex justify-center">
-            <Button
-              disabled={isLoading}
-              {...(isLoading && (
+            <Button disabled={isLoading} className="w-8/12" type="submit">
+              {isLoading ? (
                 <LoaderCircleIcon className="mr-2 w-8 h-8 animate-spin" />
-              ))}
-              className="w-8/12"
-              type="submit"
-            >
-              Sign In
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </div>
           <div className="text-center mt-4">
